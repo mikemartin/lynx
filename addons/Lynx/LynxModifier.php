@@ -16,6 +16,11 @@ class LynxModifier extends Modifier
      */
     public function index($url)
     {
+      // Do nothing if we aren't supposed to run in this environment.
+      if (! $this->environmentWhitelisted()) {
+        return $url;
+      }
+
       if ($this->storage->get($url) != null) {
         $short_url = $this->storage->get($url);
       } else {
@@ -26,5 +31,15 @@ class LynxModifier extends Modifier
         $this->storage->put($url,$short_url);
       }
       return $short_url;
+    }
+
+    /**
+     * Is the current environment whitelisted?
+     *
+     * @return bool
+     */
+    private function environmentWhitelisted()
+    {
+        return in_array(app()->environment(), $this->getConfig('environments', []));
     }
 }
