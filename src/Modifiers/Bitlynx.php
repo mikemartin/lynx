@@ -2,7 +2,7 @@
 
 namespace Mikemartin\Bitlynx\Modifiers;
 
-use Bitly;
+use Shivella\Bitly\Facade\Bitly;
 use Statamic\Modifiers\Modifier;
 
 class Bitlynx extends Modifier

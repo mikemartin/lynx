@@ -2,6 +2,7 @@
 
 namespace Mikemartin\Bitlynx;
 
+use Shivella\Bitly\BitlyServiceProvider;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -11,6 +12,17 @@ class ServiceProvider extends AddonServiceProvider
         Modifiers\Bitlynx::class,
     ];
     
+
+    /**
+     * Register the Service Provider
+     *
+     * @var array
+     */
+    public $bindings = [
+        ServerProvider::class => BitlyServiceProvider::class,
+    ];
+    
+
     /**
      * Bootstrap application services.
      *
