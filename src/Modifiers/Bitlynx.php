@@ -8,7 +8,7 @@ use Statamic\Modifiers\Modifier;
 class Bitlynx extends Modifier
 {
     /**
-     * Modify a value.
+     * Shorten URL with Bit.ly API
      *
      * @param mixed  $value    The value to be modified
      * @param array  $params   Any parameters used in the modifier
@@ -21,4 +21,5 @@ class Bitlynx extends Modifier
         return $url;
     }
 }
+
 

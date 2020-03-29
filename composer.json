@@ -3,16 +3,18 @@
     "description": "Shorten urls using Bitly v4 API",
     "type": "statamic-addon",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Mike Martin",
-            "email": "hello@mike-martin.ca"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Mikemartin\\Bitlynx\\": "src"
         }
+    },
+    "authors": [
+        {
+            "name": "Mike Martin"
+        }
+    ],
+    "support": {
+        "email": "hello@mike-martin.ca"
     },
     "extra": {
         "statamic": {

@@ -2,19 +2,15 @@
 
 namespace Mikemartin\Bitlynx;
 
-use Mikemartin\Bitlynx\Modifiers\Recaptcha;
 use Statamic\Providers\AddonServiceProvider;
 
-class BitlynxServiceProvider extends AddonServiceProvider
+class ServiceProvider extends AddonServiceProvider
 {
-    public $providers = [
-        Shivella\Bitly\BitlyServiceProvider::class,
+    
+    protected $modifiers = [
+        Modifiers\Bitlynx::class,
     ];
-
-    public $aliases = [
-        'Bitly' => Shivella\Bitly\Facade\Bitly::class,
-    ];
-
+    
     /**
      * Bootstrap application services.
      *
