@@ -5,7 +5,7 @@ namespace Mikemartin\Bitlynx;
 use Mikemartin\Bitlynx\Modifiers\Recaptcha;
 use Statamic\Providers\AddonServiceProvider;
 
-class ServiceProvider extends AddonServiceProvider
+class BitlynxServiceProvider extends AddonServiceProvider
 {
     public $providers = [
         Shivella\Bitly\BitlyServiceProvider::class,
