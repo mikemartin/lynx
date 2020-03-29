@@ -1,0 +1,31 @@
+{
+    "name": "mikemartin/bitlynx",
+    "description": "Shorten urls using Bitly v4 API",
+    "type": "statamic-addon",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Martin",
+            "email": "hello@mike-martin.ca"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mikemartin\\Bitlynx\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Bitlynx",
+            "description": "Shorten urls using Bitly v4 API"
+        },
+        "laravel": {
+            "providers": [
+                "Mikemartin\\Bitlynx\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "shivella/laravel-bitly": "^1.1"
+    }
+}
