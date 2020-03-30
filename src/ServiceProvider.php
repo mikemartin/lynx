@@ -2,27 +2,24 @@
 
 namespace Mikemartin\Bitlynx;
 
-use Shivella\Bitly\BitlyServiceProvider;
+use Statamic\Facades\CP\Nav;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
 {
     
+    protected $scripts = [
+        __DIR__.'/../public/js/bitlynx.js'
+    ];
+
+    protected $routes = [
+        'cp' => __DIR__ . '/../routes/cp.php',
+    ];
+
     protected $modifiers = [
         Modifiers\Bitlynx::class,
     ];
     
-
-    /**
-     * Register the Service Provider
-     *
-     * @var array
-     */
-    public $bindings = [
-        ServerProvider::class => BitlyServiceProvider::class,
-    ];
-    
-
     /**
      * Bootstrap application services.
      *
@@ -32,9 +29,23 @@ class ServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
+        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'bitlynx');
+
         $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('bitlynx.php'),
+            __DIR__.'/../config/bitly.php' => config_path('bitly.php'),
         ], 'config');
+
+        $this->createNavigation();
         
     }
+
+    private function createNavigation(): void
+    {
+        Nav::extend(function ($nav) {
+            $nav->content('Bitlynx')
+                ->route('bitlynx.index')
+                ->icon('paperclip');
+        });
+    }
+    
 }

@@ -18,7 +18,7 @@ BITLY_ACCESS_TOKEN=your_secret_bitly_access_token
 
 Publish the config file:
 ```
-php artisan vendor:publish --provider="Mikemartin\Bitlynx\ServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Mikemartin\Bitlynx\ServiceProvider"
 ```
 
 Shorten any url using the new `bitlynx` modifier!
@@ -26,11 +26,10 @@ Shorten any url using the new `bitlynx` modifier!
 {{ permalink | bitlynx }}
 ```
 
-## Branded Links [TODO: update for v3]
+## Branded Links
 
-It's best to generate branded links on your production server only to avoid hitting your limit of 500 branded Bitlinks per month. Configure the server you'd like Lynx to run on through the addons settings.
+It's best to generate branded links on your production server only to avoid hitting your limit of 500 branded Bitlinks per month. Configure the server you'd like Bitlynx to run on using your addon config.
 
 ```
-environments:
-  - production
+'enabled_env' => ['production']
 ```
