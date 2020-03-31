@@ -2,7 +2,8 @@
 
 namespace Mikemartin\Bitlynx;
 
-use Statamic\Facades\CP\Nav;
+use Statamic\Facades\Utility;
+use Mikemartin\Bitlynx\Http\Controllers\BitlynxController;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -31,21 +32,22 @@ class ServiceProvider extends AddonServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'bitlynx');
 
+        /* TODO: Map config file */
         $this->publishes([
             __DIR__.'/../config/bitly.php' => config_path('bitly.php'),
         ], 'config');
 
-        $this->createNavigation();
+        $this->registerUtility();
         
     }
 
-    private function createNavigation(): void
+    private function registerUtility(): void
     {
-        Nav::extend(function ($nav) {
-            $nav->content('Bitlynx')
-                ->route('bitlynx.index')
-                ->icon('paperclip');
-        });
+        $utility = Utility::make('bitlynx')
+            ->icon('paperclip')
+            ->description('Manage and view your Bitly shortened links.');
+
+        $utility->register();
     }
     
 }
