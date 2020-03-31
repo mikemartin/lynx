@@ -112,6 +112,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['links'],
   data: function data() {
@@ -120,8 +140,34 @@ __webpack_require__.r(__webpack_exports__);
       columns: [{
         field: 'title',
         label: __('Title')
+      }, {
+        field: 'link',
+        label: __('Link')
+      }, {
+        field: 'url',
+        label: __('URL')
+      }, {
+        field: 'created_at',
+        label: __('Created')
       }]
     };
+  },
+  methods: {
+    copyLink: function copyLink(link) {
+      var linkToCopy = document.querySelector('.clipboard-link');
+      linkToCopy.setAttribute('type', 'text');
+      linkToCopy.select();
+
+      try {
+        var successful = document.execCommand('copy');
+        this.$toast.success(__('Bitly link copied'));
+      } catch (err) {
+        this.$toast.error(__('Unable to copy link'));
+      }
+
+      linkToCopy.setAttribute('type', 'hidden');
+      window.getSelection().removeAllRanges();
+    }
   }
 });
 
@@ -143,7 +189,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("data-list", {
-    attrs: { columns: _vm.columns, sort: false, rows: _vm.rows },
+    attrs: {
+      "visible-columns": _vm.columns,
+      columns: _vm.columns,
+      rows: _vm.rows
+    },
     scopedSlots: _vm._u([
       {
         key: "default",
@@ -161,8 +211,35 @@ var render = function() {
                       fn: function(ref) {
                         var link = ref.row
                         return [
-                          _c("a", { attrs: { href: link.show_url } }, [
-                            _vm._v(_vm._s(link.title))
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(link.title) +
+                              "\n            "
+                          )
+                        ]
+                      }
+                    },
+                    {
+                      key: "cell-link",
+                      fn: function(ref) {
+                        var link = ref.row
+                        return [
+                          _c("span", { staticClass: "badge-pill-sm" }, [
+                            _vm._v("bit.ly/"),
+                            _c("span", { staticClass: "font-bold" }, [
+                              _vm._v(_vm._s(link.back_half))
+                            ])
+                          ])
+                        ]
+                      }
+                    },
+                    {
+                      key: "cell-url",
+                      fn: function(ref) {
+                        var link = ref.row
+                        return [
+                          _c("span", { staticClass: "font-mono text-2xs" }, [
+                            _vm._v(_vm._s(link.url))
                           ])
                         ]
                       }
@@ -176,12 +253,55 @@ var render = function() {
                           _c(
                             "dropdown-list",
                             [
-                              _c("dropdown-item", {
-                                attrs: {
-                                  text: _vm.__("Show"),
-                                  redirect: _vm.collection.show_url
-                                }
-                              })
+                              _c(
+                                "dropdown-item",
+                                {
+                                  attrs: { text: _vm.__("Copy") },
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      $event.preventDefault()
+                                      return _vm.copyLink(link)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    staticClass: "clipboard-link",
+                                    attrs: { type: "hidden" },
+                                    domProps: { value: link.link }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              link.deleteable
+                                ? _c(
+                                    "dropdown-item",
+                                    {
+                                      staticClass: "warning",
+                                      attrs: { text: _vm.__("Delete") },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.$refs[
+                                            "deleter_" + link.id
+                                          ].confirm()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("resource-deleter", {
+                                        ref: "deleter_" + link.id,
+                                        attrs: { resource: link },
+                                        on: {
+                                          deleted: function($event) {
+                                            return _vm.removeRow(link)
+                                          }
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _vm._e()
                             ],
                             1
                           )
@@ -327,7 +447,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_links_LinksListing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/links/LinksListing */ "./resources/js/components/links/LinksListing.vue");
 
 Statamic.booting(function () {
-  // Listings
   Statamic.$components.register('links-listing', _components_links_LinksListing__WEBPACK_IMPORTED_MODULE_0__["default"]);
 });
 
