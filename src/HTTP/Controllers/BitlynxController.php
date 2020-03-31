@@ -2,15 +2,33 @@
 
 namespace Mikemartin\Bitlynx\Http\Controllers;
 
+use Statamic\Facades\Site;
 use Statamic\Facades\File;
 use Statamic\Facades\Folder;
 use Statamic\Facades\YAML;
-use Statamic\Facades\Helper;
+use Statamic\Support\Str;
+use Illuminate\Support\Carbon;
 
 class BitlynxController {
 
-    public function index() {
-        $links = $this->links();
+    public function __invoke() {
+
+        $site_url = Site::current()->absoluteUrl();
+
+        $links = $this->links()
+            ->map(function ($link) use ($site_url) {
+                return [
+                    'id' => $link['id'],
+                    'title' => $link['title'],
+                    'url' => $link['url'],
+                    'link' => $link['link'],
+                    'back_half' => Str::removeLeft($link['link'],'https://bit.ly/'),
+                    'created_at' => Carbon::parse($link['created_at'])->format('Y/m/d')
+                ];
+            })
+            ->values();
+
+
         return view('bitlynx::links.index',compact('links'));
     }
 
