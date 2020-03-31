@@ -21,9 +21,10 @@ class Bitlynx extends Modifier
     public function index($long_url, $params, $context)
     {
 
-        // Skip if environment is not enabled
-        if (!app()->environment(config('bitly.enabled_env', ''))) {
-            return $long_url;
+        // Is Bitly enabled on server?
+        if (!config('bitly.enabled')) {
+            return $value;
+        }
         }
 
         // Check if url was already shortened
