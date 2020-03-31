@@ -34,6 +34,12 @@ class Bitlynx extends Modifier
         } else {
             $long_url = $context['permalink'];
         }
+
+        // Get title from context
+        if ($context['title']) {
+            $title = $context['title']->raw();
+        } else {
+            $title = $long_url;
         }
 
         // Check if url was already shortened
@@ -45,8 +51,8 @@ class Bitlynx extends Modifier
             $short_url = Bitly::getUrl($long_url);
 
             $data = array(
-                "title" => $long_url,
-                "url" => $short_url,
+                "title" => $title,
+                "url" => $long_url,
                 "created_at" => now()->timestamp
             );
             
