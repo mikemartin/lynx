@@ -21,10 +21,10 @@ class BitlynxController {
 
         
         foreach (Folder::getFiles($path) as $file) {
-            $link = collect(YAML::parse(File::get($file)))
-                ->put('id',pathinfo($file)['filename'])->all();
+            $content = YAML::parse(File::get($file));
+            $content['id'] = pathinfo($file)['filename'];
 
-            $links->push($link)->all();
+            $links->push($content);
         }
         
         return $links;
