@@ -44,8 +44,9 @@ class ServiceProvider extends AddonServiceProvider
     private function registerUtility(): void
     {
         $utility = Utility::make('bitlynx')
+            ->action(BitlynxController::class)
             ->icon('paperclip')
-            ->description('Manage and view your Bitly shortened links.');
+            ->description('View and copy your Bitly shortened links.');
 
         $utility->register();
     }
