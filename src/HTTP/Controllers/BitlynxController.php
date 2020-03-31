@@ -18,12 +18,10 @@ class BitlynxController {
     {
         $links = collect();
         $path = storage_path('statamic/addons/bitlynx');
-
-        
-        foreach (Folder::getFiles($path) as $file) {
+                
+        foreach (Folder::getFilesByType($path, 'yaml') as $file) {
             $content = YAML::parse(File::get($file));
             $content['id'] = pathinfo($file)['filename'];
-
             $links->push($content);
         }
         
