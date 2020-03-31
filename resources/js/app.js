@@ -1,6 +1,6 @@
-import LinkListing from './components/links/Listing';
+import LinksListing from './components/links/LinksListing';
 
 Statamic.booting(() => {
     // Listings
-    Statamic.$components.register('bitlynx-link-list', LinkListing);
+    Statamic.$components.register('links-listing', LinksListing);
 });
