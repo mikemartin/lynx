@@ -46,13 +46,15 @@ class Bitlynx extends Modifier
         $path = storage_path('statamic/addons/bitlynx/'.md5($long_url).'.yaml');
 
         if (File::exists($path)) {
-            $short_url = collect(YAML::parse(File::get($path)))->get('url');
+            $link = collect(YAML::parse(File::get($path)))->get('link');
         } else {
-            $short_url = Bitly::getUrl($long_url);
+
+            $link = Bitly::getUrl($long_url);
 
             $data = array(
                 "title" => $title,
                 "url" => $long_url,
+                "link" => $link,
                 "created_at" => now()->timestamp
             );
             
@@ -60,7 +62,7 @@ class Bitlynx extends Modifier
         }
 
         // Get the short URL
-        return $short_url;
+        return $link;
     }
 
 }
