@@ -11,6 +11,5 @@ return [
     | Enter here your access token generated from: https://bitly.com/a/oauth_apps
     */
     'accesstoken' => env('BITLY_ACCESS_TOKEN', ''),
-    'enabled' => env('BITLY_ENABLED', ''),
-    
+    'enabled' => env('BITLY_ENABLED', '')
 ];

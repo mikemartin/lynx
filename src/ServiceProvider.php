@@ -3,7 +3,7 @@
 namespace Mikemartin\Bitlynx;
 
 use Statamic\Facades\Utility;
-use Mikemartin\Bitlynx\Http\Controllers\BitlynxController;
+use Mikemartin\Bitlynx\Http\Controllers\Auth\AuthController;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -15,6 +15,7 @@ class ServiceProvider extends AddonServiceProvider
 
     protected $routes = [
         'cp' => __DIR__ . '/../routes/cp.php',
+        'web' => __DIR__ . '/../routes/web.php',
     ];
 
     protected $modifiers = [
@@ -37,6 +38,10 @@ class ServiceProvider extends AddonServiceProvider
             __DIR__.'/../config/bitly.php' => config_path('bitly.php'),
         ], 'config');
 
+        $this->publishes([
+            __DIR__.'/../config/bitlynx/oauth.php' => config_path('bitlynx/oauth.php'),
+        ], 'config');
+
         $this->registerUtility();
         
     }
@@ -44,7 +49,7 @@ class ServiceProvider extends AddonServiceProvider
     private function registerUtility(): void
     {
         $utility = Utility::make('bitlynx')
-            ->action(BitlynxController::class)
+            ->action(AuthController::class)
             ->icon('paperclip')
             ->description('View and copy your Bitly shortened links.');
 
