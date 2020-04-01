@@ -2,6 +2,8 @@
 
 namespace Mikemartin\Bitlynx\OAuth;
 
+use Laravel\Socialite\Facades\Socialite;
+
 class Manager
 {
     protected static $providers = [];

@@ -1,14 +1,15 @@
 <?php
 
+
 return [
 
     'enabled' => true,
 
     'providers' => [
-        'bitly',
+      \SocialiteProviders\Manager\ServiceProvider::class
     ],
 
-    'bitly' => [
+    'bit.ly' => [
       'client_id' => env('BITLY_CLIENT_ID'),
       'client_secret' => env('BITLY_CLIENT_SECRET'),
       'redirect' => env('APP_URL').'/oauth/bitly/callback',

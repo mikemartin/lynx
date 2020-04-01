@@ -28,6 +28,8 @@
         }
     },
     "require": {
-        "shivella/laravel-bitly": "^1.1"
+        "shivella/laravel-bitly": "^1.1",
+        "laravel/socialite": "^4.3",
+        "socialiteproviders/bitly": "^3.0"
     }
 }
