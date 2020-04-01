@@ -21,7 +21,12 @@ class ServiceProvider extends AddonServiceProvider
     protected $modifiers = [
         Modifiers\Bitlynx::class,
     ];
-    
+
+    protected $providers = [
+        \SocialiteProviders\Manager\ServiceProvider::class,
+        \Mikemartin\Bitlynx\Providers\EventServiceProvider::class,
+    ];
+
     /**
      * Bootstrap application services.
      *
