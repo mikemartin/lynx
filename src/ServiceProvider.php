@@ -4,11 +4,13 @@ namespace Mikemartin\Bitlynx;
 
 use Statamic\Facades\Utility;
 use Mikemartin\Bitlynx\Http\Controllers\Auth\AuthController;
+use Mikemartin\Bitlynx\Providers\EventServiceProvider;
+use SocialiteProviders\Manager\ServiceProvider as SocialiteServiceProvider;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
 {
-    
+
     protected $scripts = [
         __DIR__.'/../public/js/bitlynx.js'
     ];
@@ -21,11 +23,7 @@ class ServiceProvider extends AddonServiceProvider
     protected $modifiers = [
         Modifiers\Bitlynx::class,
     ];
-
-    protected $providers = [
-        \SocialiteProviders\Manager\ServiceProvider::class,
-        \Mikemartin\Bitlynx\Providers\EventServiceProvider::class,
-    ];
+    
 
     /**
      * Bootstrap application services.
@@ -38,7 +36,6 @@ class ServiceProvider extends AddonServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'bitlynx');
 
-        /* TODO: Map config file */
         $this->publishes([
             __DIR__.'/../config/bitly.php' => config_path('bitly.php'),
         ], 'config');
@@ -48,6 +45,20 @@ class ServiceProvider extends AddonServiceProvider
         ], 'config');
 
         $this->registerUtility();
+
+        
+    }
+
+    public function register()
+    {
+        $this->app->register(SocialiteServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
+
+        if (! $this->app->configurationIsCached()) {
+            $this->mergeConfigFrom(__DIR__.'/../config/bitly.php', 'bitly');
+        }
+
+        config(['services.bitly' => config('bitlynx.oauth.bitly')]);
         
     }
 
