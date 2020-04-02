@@ -2,14 +2,15 @@
 
 namespace Mikemartin\Bitlynx\Providers;
 
-use Statamic\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
-      \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-        // add your listeners (aka providers) here
-        'SocialiteProviders\\Bitly\\BitlyExtendSocialite@handle',
-      ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // add your listeners (aka providers) here
+            'SocialiteProviders\\Bitly\\BitlyExtendSocialite@handle',
+        ],
     ];
 }
